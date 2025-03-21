@@ -17,6 +17,8 @@ try {
   const shouldIncludeImports = core.getBooleanInput("include-imports");
   const shouldRecurse = core.getBooleanInput("recursive");
 
+  const valuesToNotRedact = Set(['1', '3', 'test', 'CI', '5', '30'])
+
   // get infisical token using UA credentials
   let infisicalToken;
 
@@ -68,7 +70,9 @@ try {
   if (exportType === "env") {
     // Write the secrets to action ENV
     Object.entries(keyValueSecrets).forEach(([key, value]) => {
-      core.setSecret(value);
+      if (!valuesNotToRedact.has(value)) {
+        core.setSecret(value);
+      }
       core.exportVariable(key, value);
     });
     core.info("Injected secrets as environment variables");
