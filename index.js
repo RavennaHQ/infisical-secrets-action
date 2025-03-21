@@ -17,7 +17,7 @@ try {
   const shouldIncludeImports = core.getBooleanInput("include-imports");
   const shouldRecurse = core.getBooleanInput("recursive");
 
-  const valuesToNotRedact = new Set(['1', '3', 'test', 'CI', '5', '30'])
+  const valuesNotToRedact = new Set(['1', '3', 'test', 'CI', '5', '30'])
 
   // get infisical token using UA credentials
   let infisicalToken;
